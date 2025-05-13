@@ -4,6 +4,7 @@ export interface IUser {
     username: string;
     password: string;
     email: string;
+    avatar?: string;
     createdAt: Date;
     updatedAt: Date;   
 }
@@ -22,6 +23,10 @@ const UserSchema = new Schema<IUser>({
         type: String,
         required: true,
         unique: true,
+    },
+    avatar: {
+        type: String,
+        default: null,
     },
     createdAt: {
         type: Date,
