@@ -1,6 +1,8 @@
 import { Response, Request, NextFunction } from "express";
 import { User } from "../models/User";
+import config from "../config/config";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export async function register(req: Request, res: Response, next: NextFunction){
     try {
@@ -26,11 +28,18 @@ export async function login(req: Request, res: Response, next: NextFunction){
             let validPassword = await bcrypt.compare(password, user.password);
             if(!validPassword)
                 res.status(401).json({ message: "Invalid password" });
+
+            const token = jwt.sign(
+                { userId: user._id, username: user.username },
+                config.jwtSecret,
+                { expiresIn: "1h"}
+            );
+
+            res.status(200).json({ message: "Successfullu logged", token: token })
         } else {
             res.status(404).json({ message: "User not found" });
         }
 
-        res.status(201).json(user);
     } catch (error) {
         next(error);
     }
