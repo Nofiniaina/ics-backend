@@ -5,7 +5,7 @@ import {
 
 const router = Router();
 
-router.get("/getAll", getAllPosts);
+router.get("/all", getAllPosts);
 router.post("/create", createPost);
 router.delete("/delete/:id", deletePost);
 
