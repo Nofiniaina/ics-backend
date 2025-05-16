@@ -13,7 +13,7 @@ export async function createPost(req: Request, res: Response, next: NextFunction
 
 export async function getAllPosts(req: Request, res: Response, next: NextFunction){
     try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate("user", "_id username email avatar");
         res.status(200).json(posts);
     } catch (error) {
         next(error);

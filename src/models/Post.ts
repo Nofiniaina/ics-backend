@@ -1,7 +1,7 @@
 import mongoose, { Schema, Types } from "mongoose";
 
 export interface IPost {
-    userId: Types.ObjectId;
+    user: Types.ObjectId;
     title: string;
     content: string;
     createdAt: Date;
@@ -9,7 +9,7 @@ export interface IPost {
 }
 
 const PostSchema = new Schema<IPost>({
-    userId: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,

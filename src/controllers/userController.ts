@@ -35,7 +35,14 @@ export async function login(req: Request, res: Response, next: NextFunction){
                 { expiresIn: "1h"}
             );
 
-            res.status(200).json({ message: "Successfullu logged", token: token })
+            const dataUser = {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                avatar: user.avatar,
+            }
+
+            res.status(200).json({ message: "Successfullu logged", token: token, user: dataUser });
         } else {
             res.status(404).json({ message: "User not found" });
         }
