@@ -13,7 +13,9 @@ export async function createPost(req: Request, res: Response, next: NextFunction
 
 export async function getAllPosts(req: Request, res: Response, next: NextFunction){
     try {
-        const posts = await Post.find().populate("user", "_id username email avatar");
+        const posts = await Post.find()
+            .select("_id user title content createdAt")
+            .populate("user", "_id username email avatar");
         res.status(200).json(posts);
     } catch (error) {
         next(error);
